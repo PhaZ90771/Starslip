@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class asteriod : MonoBehaviour
+public class Asteriod : MonoBehaviour
 {
     Transform myTrans;
     Vector3 rotation;
     Vector3 size = Vector3.one;
     int health;
-
+    int randAsteroidClass;
 
     public float rotationOffset = 75f;
     public int minClass = 1;
     public int maxClass = 5;
-    int randAsteroidClass;
+    public int damageDealt;
+    
 
 
     void Awake()
@@ -29,12 +30,14 @@ public class asteriod : MonoBehaviour
         rotation.y = Random.Range(-rotationOffset, rotationOffset);
         rotation.z = Random.Range(-rotationOffset, rotationOffset);
 
-        // set random size and health
+        // set random size and health and damage
         randAsteroidClass = Random.Range(minClass, maxClass);
         size.Scale(Vector3.one * randAsteroidClass);
         myTrans.localScale = size;
 
-        health = 100 * (int)randAsteroidClass;
+        health = 100 * randAsteroidClass;
+
+        damageDealt = 10 * randAsteroidClass;
 
     }
 
@@ -45,4 +48,16 @@ public class asteriod : MonoBehaviour
         myTrans.Rotate(rotation * Time.deltaTime);
 
     }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Destroy(this);
+        }
+    }
+
+
+
 }
