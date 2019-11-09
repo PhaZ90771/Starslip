@@ -1,0 +1,33 @@
+{
+    "name": "InputMaster",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "86aea02a-f0c1-4720-85d0-4587044fab60",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Button",
+                    "id": "4338cd3e-f448-43f6-8c04-7f7c1b29e2aa",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9bb11082-c9ed-4da0-a511-135fcd248c9c",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "StickDeadzone,AxisDeadzone",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
