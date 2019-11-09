@@ -31,6 +31,7 @@ public class Ship : MonoBehaviour
 
     private void Update()
     {
+        UpdateDirection(inputMaster.Player.Move.ReadValue<Vector2>());
         Move();
         ClampPosition();
     }
