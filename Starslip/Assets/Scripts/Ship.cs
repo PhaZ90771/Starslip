@@ -6,6 +6,7 @@ public class Ship : MonoBehaviour
     public float Speed;
     public float Sensitivity;
     public bool InvertAimY;
+    public AudioSource audioSource;
 
     private InputMaster inputMaster;
     private Vector3 aimLocation = Vector3.zero;
@@ -126,6 +127,7 @@ public class Ship : MonoBehaviour
             var rb = b.GetComponent<Rigidbody>();
             rb.AddForce(b.transform.forward * 5000f);
             shotDelay = true;
+            audioSource.PlayOneShot(audioSource.clip);
         }
         else if (inputMaster.Player.Fire.ReadValue<float>() < 0.01f)
         {
