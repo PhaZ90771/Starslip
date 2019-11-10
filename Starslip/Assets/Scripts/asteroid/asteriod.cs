@@ -45,14 +45,15 @@ public class Asteriod : MonoBehaviour
         //rotate
         myTrans.Rotate(rotation * Time.deltaTime);
 
-    }
-
-    public void TakeDamage(int damage)
-    {
         if (health <= 0)
         {
             Destroy(gameObject);
         }
+
+    }
+
+    public void TakeDamage(int damage)
+    {
         health -= damage;
     }
 }

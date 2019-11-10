@@ -73,7 +73,7 @@ public class Ship : MonoBehaviour
     {
         Vector3 toPoint = aimRay.GetPoint(20f);
 
-        if (Vector3.Distance(transform.position, toPoint) < 1f)
+        if (Vector3.Distance(transform.position, toPoint) < 2f)
             return;
         transform.position = Vector3.Lerp(transform.position, toPoint, Time.deltaTime * Speed);
 
@@ -106,7 +106,7 @@ public class Ship : MonoBehaviour
         Debug.DrawLine(Camera.main.transform.position, aimPoint, Color.gray);
         var isHit = Physics.Raycast(aimRay, out RaycastHit hit, 1000f, LayerMask.GetMask("Targetable"));
 
-        if (isHit && hit.distance > 100f)
+        if (isHit && hit.distance > 20f)
         {
             aimPoint = hit.point;
             Debug.DrawLine(transform.position, aimPoint, Color.red);
