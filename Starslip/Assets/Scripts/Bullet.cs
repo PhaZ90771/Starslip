@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.tag == "Asteroid")
         {
-            var asteroid = collision.gameObject.GetComponent<Asteriod>();
+            var asteroid = collision.gameObject.GetComponent<AST>();
             if (asteroid)
                 asteroid.TakeDamage(Damage);
             LifeTime = 0f;
