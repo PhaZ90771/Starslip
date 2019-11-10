@@ -10,8 +10,8 @@ public class AST : MonoBehaviour
     float randScale;
 
     public float rotationOffset = 75f;
-    public float minScale;
-    public float maxScale;
+    public float minScale = 1;
+    public float maxScale = 5;
     public int health = 100;
     public int damageDealt = 10;
     
