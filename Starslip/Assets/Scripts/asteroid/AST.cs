@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Asteriod : MonoBehaviour
+public class AST : MonoBehaviour
 {
     Transform myTrans;
     Vector3 rotation;
