@@ -7,10 +7,11 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collision");
         if (collision.gameObject.tag == "Asteroid")
         {
-            collision.gameObject.GetComponent<Asteriod>().TakeDamage(Damage);
+            var asteroid = collision.gameObject.GetComponent<Asteriod>();
+            if (asteroid)
+                asteroid.TakeDamage(Damage);
             LifeTime = 0f;
         }
         else if (collision.gameObject.tag == "Alien")
