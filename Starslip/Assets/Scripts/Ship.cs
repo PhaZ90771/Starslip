@@ -9,11 +9,15 @@ public class Ship : MonoBehaviour
     private InputMaster inputMaster;
     private Vector3 aimLocation = Vector3.zero;
     private Vector3 aimPoint = Vector3.zero;
+    private Ray shipAimRay;
     private Ray aimRay;
 
     [SerializeField] private Transform target;
     [SerializeField] private Transform crosshairImage;
     [SerializeField] private Transform shipModel;
+    [SerializeField] private GameObject bullet;
+
+    bool shotDelay = false;
 
     protected void Awake()
     {
@@ -41,6 +45,8 @@ public class Ship : MonoBehaviour
         crosshairImage.position = Camera.main.WorldToScreenPoint(aimPoint);
 
         Move();
+
+        Shoot();
     }
 
     private void UpdateAimLocation(Vector2 offset)
@@ -73,6 +79,7 @@ public class Ship : MonoBehaviour
     {
         aimRay = Camera.main.ScreenPointToRay(aimLocation);
         aimPoint = aimRay.GetPoint(1000f);
+        shipAimRay = new Ray(transform.position, aimPoint - transform.position);
     }
 
     private void UpdateHitPoint()
@@ -86,6 +93,22 @@ public class Ship : MonoBehaviour
         else
         {
             Debug.DrawLine(transform.position, aimPoint, Color.blue);
+        }
+    }
+
+    private void Shoot()
+    {
+        if (inputMaster.Player.Fire.ReadValue<float>() > 0f && !shotDelay)
+        {
+            var b = Instantiate(bullet, shipAimRay.GetPoint(0f), new Quaternion());
+            b.transform.LookAt(aimPoint);
+            var rb = b.GetComponent<Rigidbody>();
+            rb.AddForce(b.transform.forward * 1000f);
+            shotDelay = true;
+        }
+        else if (inputMaster.Player.Fire.ReadValue<float>() < 0.01f)
+        {
+            shotDelay = false;
         }
     }
 }

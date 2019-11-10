@@ -14,9 +14,9 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Look",
+                    "name": "Fire",
                     "type": "Button",
-                    "id": "366dadb2-8094-4712-9552-e89f3a63ee5c",
+                    "id": "22436454-a652-4869-9b99-b0484a0cb695",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
@@ -36,12 +36,12 @@
                 },
                 {
                     "name": "",
-                    "id": "93d0905a-ab2a-4820-aa02-d2473a3ca228",
-                    "path": "<Gamepad>/rightStick",
+                    "id": "2e0e29b0-d774-4d71-ae56-ce72e3c90410",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
-                    "processors": "StickDeadzone,AxisDeadzone",
+                    "processors": "",
                     "groups": "",
-                    "action": "Look",
+                    "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

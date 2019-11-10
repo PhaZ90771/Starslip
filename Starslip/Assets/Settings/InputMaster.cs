@@ -27,9 +27,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Look"",
+                    ""name"": ""Fire"",
                     ""type"": ""Button"",
-                    ""id"": ""366dadb2-8094-4712-9552-e89f3a63ee5c"",
+                    ""id"": ""22436454-a652-4869-9b99-b0484a0cb695"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
@@ -49,12 +49,12 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""93d0905a-ab2a-4820-aa02-d2473a3ca228"",
-                    ""path"": ""<Gamepad>/rightStick"",
+                    ""id"": ""2e0e29b0-d774-4d71-ae56-ce72e3c90410"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
-                    ""processors"": ""StickDeadzone,AxisDeadzone"",
+                    ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Look"",
+                    ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -66,7 +66,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-        m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
+        m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -117,13 +117,13 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Move;
-    private readonly InputAction m_Player_Look;
+    private readonly InputAction m_Player_Fire;
     public struct PlayerActions
     {
         private @InputMaster m_Wrapper;
         public PlayerActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
-        public InputAction @Look => m_Wrapper.m_Player_Look;
+        public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -136,9 +136,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Move.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
-                @Look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                @Look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                @Look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                @Fire.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
+                @Fire.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
+                @Fire.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -146,9 +146,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @Look.started += instance.OnLook;
-                @Look.performed += instance.OnLook;
-                @Look.canceled += instance.OnLook;
+                @Fire.started += instance.OnFire;
+                @Fire.performed += instance.OnFire;
+                @Fire.canceled += instance.OnFire;
             }
         }
     }
@@ -156,6 +156,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnLook(InputAction.CallbackContext context);
+        void OnFire(InputAction.CallbackContext context);
     }
 }
