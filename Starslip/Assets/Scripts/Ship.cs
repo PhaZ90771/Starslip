@@ -61,7 +61,8 @@ public class Ship : MonoBehaviour
 
     private void UpdateAimLocation(Vector2 offset)
     {
-        Vector3 offsetV3 = new Vector3(offset.x, offset.y, 0) * Sensitivity * Time.deltaTime;
+        float scaleFactor = (Screen.width + Screen.height) / 200f;
+        Vector3 offsetV3 = new Vector3(offset.x, offset.y, 0) * Sensitivity * scaleFactor * Time.deltaTime;
         if (InvertAimY)
             offsetV3.y *= -1;
 
