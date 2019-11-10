@@ -87,6 +87,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7840786996398649403}
+  - component: {fileID: -4147066009533614285}
   m_Layer: 0
   m_Name: asteroid_3
   m_TagString: Untagged
@@ -109,3 +110,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-4147066009533614285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6524391927536747048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4e60c396ccf0184d85c83c4b062e6ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationOffset: 75
+  minScale: 20
+  maxScale: 70
+  health: 0
+  damageDealt: 0

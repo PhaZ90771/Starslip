@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4237812058403371843}
+  - component: {fileID: 5997502251506630418}
   m_Layer: 0
-  m_Name: asteroid_1 (1)
+  m_Name: asteroid_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,6 +32,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5997502251506630418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 906598214519032144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4e60c396ccf0184d85c83c4b062e6ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationOffset: 75
+  minScale: 20
+  maxScale: 70
+  health: 0
+  damageDealt: 0
 --- !u!1 &6672268572708957389
 GameObject:
   m_ObjectHideFlags: 0
