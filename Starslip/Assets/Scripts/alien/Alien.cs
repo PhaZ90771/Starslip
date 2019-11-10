@@ -77,7 +77,7 @@ public class Alien : MonoBehaviour
 
     void SetStartPos()
     {
-        myTrans.position =  mainCam.position+(Vector3.forward*10);//new Vector3(mainCam.position.x, mainCam.position.y, mainCam.position.z + 20);
+        myTrans.position = mainCam.position+(Vector3.forward*10);//new Vector3(mainCam.position.x, mainCam.position.y, mainCam.position.z + 20);
         myTrans.rotation = mainCam.rotation;
     }
 }

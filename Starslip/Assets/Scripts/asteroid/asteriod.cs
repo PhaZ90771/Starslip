@@ -34,6 +34,8 @@ public class Asteriod : MonoBehaviour
         randScale = Random.Range(minScale, maxScale);
         size.Scale(Vector3.one / randScale);
         myTrans.localScale = size;
+
+        Destroy(gameObject, 24);
         
     }
 
