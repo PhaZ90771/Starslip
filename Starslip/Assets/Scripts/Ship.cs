@@ -85,7 +85,9 @@ public class Ship : MonoBehaviour
     private void UpdateHitPoint()
     {
         Debug.DrawLine(Camera.main.transform.position, aimPoint, Color.gray);
-        if (Physics.Raycast(aimRay, out RaycastHit hit, 1000f, LayerMask.GetMask("Targetable")))
+        var isHit = Physics.Raycast(aimRay, out RaycastHit hit, 1000f, LayerMask.GetMask("Targetable"));
+
+        if (isHit && hit.distance > 100f)
         {
             aimPoint = hit.point;
             Debug.DrawLine(transform.position, aimPoint, Color.red);

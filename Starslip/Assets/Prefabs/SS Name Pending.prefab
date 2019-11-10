@@ -298,7 +298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 1.8
-  Sensitivity: 150
+  Sensitivity: 500
   InvertAimY: 0
   target: {fileID: 8328596549456677505}
   crosshairImage: {fileID: 3522209277719840342}
