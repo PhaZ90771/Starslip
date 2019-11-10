@@ -2,20 +2,27 @@
 
 public class Ship : MonoBehaviour
 {
-    public float Speed = 18;
+    public float Speed;
+    public float Sensitivity;
+    public bool InvertAimY;
 
     private InputMaster inputMaster;
-    private Vector2 direction;
+    private Vector3 aimLocation = Vector3.zero;
+    private Vector3 aimPoint = Vector3.zero;
+    private Ray aimRay;
+
+    [SerializeField] private Transform target;
+    [SerializeField] private Transform crosshairImage;
+    [SerializeField] private Transform shipModel;
 
     protected void Awake()
     {
         inputMaster = new InputMaster();
-        inputMaster.Player.Move.performed += ctx => UpdateDirection(ctx.ReadValue<Vector2>());
+        aimLocation = new Vector3(Screen.width / 2, Screen.height / 2, 0);
     }
 
     private void OnEnable()
     {
-
         inputMaster.Enable();
     }
 
@@ -24,28 +31,61 @@ public class Ship : MonoBehaviour
         inputMaster.Disable();
     }
 
-    private void UpdateDirection(Vector2 dir)
-    {
-        direction = dir;
-    }
-
     private void Update()
     {
-        UpdateDirection(inputMaster.Player.Move.ReadValue<Vector2>());
+        UpdateAimLocation(inputMaster.Player.Move.ReadValue<Vector2>());
+        ClampAim();
+        UpdateAimPoint();
+        UpdateHitPoint();
+
+        crosshairImage.position = Camera.main.WorldToScreenPoint(aimPoint);
+
         Move();
-        ClampPosition();
+    }
+
+    private void UpdateAimLocation(Vector2 offset)
+    {
+        Vector3 offsetV3 = new Vector3(offset.x, offset.y, 0) * Sensitivity * Time.deltaTime;
+        if (InvertAimY)
+            offsetV3.y *= -1;
+
+        aimLocation += offsetV3;
     }
 
     private void Move()
     {
-        transform.Translate(direction * Speed * Time.deltaTime);
+        Vector3 toPoint = aimRay.GetPoint(20f);
+
+        if (Vector3.Distance(transform.position, toPoint) < 1f)
+            return;
+        transform.position = Vector3.Lerp(transform.position, toPoint, Time.deltaTime * Speed);
+
+        shipModel.LookAt(aimPoint);
     }
 
-    private void ClampPosition()
+    private void ClampAim()
     {
-        Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
-        pos.x = Mathf.Clamp01(pos.x);
-        pos.y = Mathf.Clamp01(pos.y);
-        transform.position = Camera.main.ViewportToWorldPoint(pos);
+        aimLocation.x = Mathf.Clamp(aimLocation.x, 10, Screen.width - 10);
+        aimLocation.y = Mathf.Clamp(aimLocation.y, 10, Screen.height - 10);
+    }
+
+    private void UpdateAimPoint()
+    {
+        aimRay = Camera.main.ScreenPointToRay(aimLocation);
+        aimPoint = aimRay.GetPoint(1000f);
+    }
+
+    private void UpdateHitPoint()
+    {
+        Debug.DrawLine(Camera.main.transform.position, aimPoint, Color.gray);
+        if (Physics.Raycast(aimRay, out RaycastHit hit, 1000f, LayerMask.GetMask("Targetable")))
+        {
+            aimPoint = hit.point;
+            Debug.DrawLine(transform.position, aimPoint, Color.red);
+        }
+        else
+        {
+            Debug.DrawLine(transform.position, aimPoint, Color.blue);
+        }
     }
 }
