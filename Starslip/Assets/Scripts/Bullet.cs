@@ -4,6 +4,7 @@ public class Bullet : MonoBehaviour
 {
     public float LifeTime = 5f;
     public int Damage = 5;
+    public GameObject Explosion;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -26,6 +27,7 @@ public class Bullet : MonoBehaviour
         LifeTime -= Time.deltaTime;
         if (LifeTime <= 0f)
         {
+            Instantiate(Explosion, transform.position, new Quaternion(), null);
             Destroy(gameObject);
         }
     }
