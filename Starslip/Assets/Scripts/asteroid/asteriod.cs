@@ -32,7 +32,7 @@ public class Asteriod : MonoBehaviour
 
         // set random size and health and damage
         randScale = Random.Range(minScale, maxScale);
-        size.Scale(Vector3.one / randScale);
+        size.Scale(Vector3.one * randScale);
         myTrans.localScale = size;
 
         Destroy(gameObject, 24);

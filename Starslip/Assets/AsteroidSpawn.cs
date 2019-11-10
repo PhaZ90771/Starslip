@@ -22,6 +22,7 @@ public class AsteroidSpawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        alienDead = true;
         timeStamp = Time.time;
     }
 
@@ -74,7 +75,7 @@ public class AsteroidSpawn : MonoBehaviour
 
     void SpawnAlien()
     {
-        Instantiate(Alien, playerTrans.position + Vector3.up * 20, Quaternion.identity);
+        Alien.SetActive(true);
         alienDead = false;
     }
 }

@@ -12,11 +12,12 @@ public class Alien : MonoBehaviour
     Vector3 quadOffset;
     AsteroidSpawn AsteroidSpawner;
     float timeStamp;
+    float centerX = 10f, centerY = 8f;
 
     private void Start()
     {
+        Debug.Log("Alien Started");
         AsteroidSpawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<AsteroidSpawn>();
-        AsteroidSpawner.spawnQuadrants.RemoveRange(0, 5);
         ChangeOffset();
         timeStamp = Time.time;
     }
@@ -34,26 +35,25 @@ public class Alien : MonoBehaviour
 
     public void Move()
     {
-        Vector3.Lerp(transform.position, parent.position + quadOffset, Time.deltaTime*1);
-
+        transform.localPosition = Vector3.Lerp(transform.localPosition, quadOffset, 0.05f);
     }
 
     public void ChangeOffset()
     {
-        int quad = AsteroidSpawner.spawnQuadrants[0];
+        int quad = AsteroidSpawner.spawnQuadrants[1];
         switch (quad)
         {
             case 1:
-                quadOffset = new Vector3(5, 5);
+                quadOffset = new Vector3(centerX, centerY)* Random.Range(0.8f,1.2f);
                 break;
             case 2:
-                quadOffset = new Vector3(-5, 5);
+                quadOffset = new Vector3(-centerX, centerY) * Random.Range(0.8f, 1.2f);
                 break;
             case 3:
-                quadOffset = new Vector3(5, -5);
+                quadOffset = new Vector3(centerX, -centerY) * Random.Range(0.8f, 1.2f);
                 break;
             case 4:
-                quadOffset = new Vector3(-5, -5);
+                quadOffset = new Vector3(-centerX, -centerY) * Random.Range(0.8f, 1.2f);
                 break;
             default:
                 Debug.LogError("No Quadrant Alien script");
@@ -62,5 +62,13 @@ public class Alien : MonoBehaviour
 
         AsteroidSpawner.spawnQuadrants.RemoveAt(0);
 
+    }
+    public void TakeDamage(int damage)
+    {
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+        health -= damage;
     }
 }
