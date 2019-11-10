@@ -4,80 +4,63 @@ using UnityEngine;
 
 public class Alien : MonoBehaviour
 {
-    Transform mainCam;
-    Transform myTrans;
-    Vector3 oldPosition;
-    Vector3 targetPosition;
-
-    public float speed = 1f;
     public int health = 100;
     public int damage = 10;
-    public float flightPerimeter = 10f;
 
-    float lerpTime;
-
+    public Transform parent;
+    
+    Vector3 quadOffset;
+    AsteroidSpawn AsteroidSpawner;
     float timeStamp;
 
-
-
-
-
-
-
-    void Awake()
+    private void Start()
     {
-        myTrans = transform;
-        mainCam = Camera.main.transform;
-
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
+        AsteroidSpawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<AsteroidSpawn>();
+        AsteroidSpawner.spawnQuadrants.RemoveRange(0, 5);
+        ChangeOffset();
         timeStamp = Time.time;
-        SetStartPos();
-        oldPosition = myTrans.position;
-        SetTargetPos();
-
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        /*if (timeStamp+4f<=Time.time)
+        //transform.position = parent.position+quadOffset;
+        if (timeStamp+2f <= Time.time)
         {
-            SetTargetPos();
             timeStamp = Time.time;
-        }*/
-
-        //transform.Translate(targetPosition * speed * Time.deltaTime);
-        lerpTime += speed / 10 * Time.deltaTime;
-        //transform.localRotation = mainCam.rotation;
-        //myTrans.position = Vector3.Lerp(oldPosition+mainCam.position,targetPosition+mainCam.position, lerpTime);
-        SetStartPos();
-    }
-
-    public void TakeDamage(int damage)
-    {
-        health -= damage;
-        if (health <= 0)
-        {
-            Destroy(this);
+            ChangeOffset();
         }
+        Move();
     }
 
-    void SetTargetPos()
+    public void Move()
     {
-        oldPosition = myTrans.position;
-        lerpTime = 0f;
-        float targetXYZ = Random.Range(-flightPerimeter, flightPerimeter);
-        targetPosition = new Vector3(targetXYZ, targetXYZ, targetXYZ);
-        
+        Vector3.Lerp(transform.position, parent.position + quadOffset, Time.deltaTime*1);
+
     }
 
-    void SetStartPos()
+    public void ChangeOffset()
     {
-        myTrans.position = mainCam.position+(Vector3.forward*10);//new Vector3(mainCam.position.x, mainCam.position.y, mainCam.position.z + 20);
-        myTrans.rotation = mainCam.rotation;
+        int quad = AsteroidSpawner.spawnQuadrants[0];
+        switch (quad)
+        {
+            case 1:
+                quadOffset = new Vector3(5, 5);
+                break;
+            case 2:
+                quadOffset = new Vector3(-5, 5);
+                break;
+            case 3:
+                quadOffset = new Vector3(5, -5);
+                break;
+            case 4:
+                quadOffset = new Vector3(-5, -5);
+                break;
+            default:
+                Debug.LogError("No Quadrant Alien script");
+                break;
+        }
+
+        AsteroidSpawner.spawnQuadrants.RemoveAt(0);
+
     }
 }
