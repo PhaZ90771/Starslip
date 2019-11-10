@@ -7,13 +7,13 @@ public class Asteriod : MonoBehaviour
     Transform myTrans;
     Vector3 rotation;
     Vector3 size = Vector3.one;
-    int health;
-    int randAsteroidClass;
+    float randScale;
 
     public float rotationOffset = 75f;
-    public int minClass = 1;
-    public int maxClass = 5;
-    public int damageDealt;
+    public float minScale = 20f;
+    public float maxScale = 80f;
+    public int health = 100;
+    public int damageDealt = 10;
     
 
 
@@ -31,14 +31,10 @@ public class Asteriod : MonoBehaviour
         rotation.z = Random.Range(-rotationOffset, rotationOffset);
 
         // set random size and health and damage
-        randAsteroidClass = Random.Range(minClass, maxClass);
-        size.Scale(Vector3.one * randAsteroidClass);
+        randScale = Random.Range(minScale, maxScale);
+        size.Scale(Vector3.one / randScale);
         myTrans.localScale = size;
-
-        health = 100 * randAsteroidClass;
-
-        damageDealt = 10 * randAsteroidClass;
-
+        
     }
 
     // Update is called once per frame
