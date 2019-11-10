@@ -8,14 +8,16 @@ public class AsteroidSpawn : MonoBehaviour
     public GameObject Alien;
     public Transform playerTrans;
 
+    [HideInInspector]
     public bool alienDead = true;
 
     float timeStamp;
     int quadrant;
 
-    [HideInInspector]
+    //[HideInInspector]
     public List<int> spawnQuadrants;
-    int spawnCount;
+    [HideInInspector]
+    public int spawnCount;
 
     
 
@@ -24,6 +26,7 @@ public class AsteroidSpawn : MonoBehaviour
     {
         alienDead = true;
         timeStamp = Time.time;
+        
     }
 
     // Update is called once per frame
@@ -37,7 +40,6 @@ public class AsteroidSpawn : MonoBehaviour
             if (Random.Range(0, 4) > 2 && alienDead && (spawnCount > 4)) 
             {
                 SpawnAlien();
-                spawnCount = 0;
             }
         }
 
@@ -77,5 +79,13 @@ public class AsteroidSpawn : MonoBehaviour
     {
         Alien.SetActive(true);
         alienDead = false;
+    }
+
+    public void AlienDead()
+    {
+        alienDead = true;
+        spawnCount = 0;
+        spawnQuadrants.RemoveRange(0, spawnQuadrants.Count);
+
     }
 }

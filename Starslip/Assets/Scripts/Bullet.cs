@@ -13,6 +13,11 @@ public class Bullet : MonoBehaviour
             collision.gameObject.GetComponent<Asteriod>().TakeDamage(Damage);
             LifeTime = 0f;
         }
+        else if (collision.gameObject.tag == "Alien")
+        {
+            collision.gameObject.GetComponent<Alien>().TakeDamage(Damage);
+            LifeTime = 0f;
+        }
     }
 
     private void Update()
