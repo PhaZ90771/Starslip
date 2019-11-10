@@ -15,6 +15,8 @@ public class Ship : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private Transform crosshairImage;
     [SerializeField] private Transform shipModel;
+    [SerializeField] private Transform bulletSpawnPoint;
+
     [SerializeField] private GameObject bullet;
 
     bool shotDelay = false;
@@ -102,7 +104,7 @@ public class Ship : MonoBehaviour
     {
         if (inputMaster.Player.Fire.ReadValue<float>() > 0f && !shotDelay)
         {
-            var b = Instantiate(bullet, shipAimRay.GetPoint(0f), new Quaternion());
+            var b = Instantiate(bullet, bulletSpawnPoint.position, new Quaternion());
             b.transform.LookAt(aimPoint);
             var rb = b.GetComponent<Rigidbody>();
             rb.AddForce(b.transform.forward * 1000f);
