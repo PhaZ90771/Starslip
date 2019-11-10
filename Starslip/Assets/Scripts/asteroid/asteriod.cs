@@ -2,14 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class asteriod : MonoBehaviour
+public class Asteriod : MonoBehaviour
 {
     Transform myTrans;
     Vector3 rotation;
+    Vector3 size = Vector3.one;
+    int health;
+    int randAsteroidClass;
 
-    public float rotationOffset = 50f;
+    public float rotationOffset = 75f;
+    public int minClass = 1;
+    public int maxClass = 5;
+    public int damageDealt;
+    
 
-    private void Awake()
+
+    void Awake()
     {
         myTrans = transform; 
     }
@@ -17,16 +25,20 @@ public class asteriod : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Random rotation (speed and dir)
+        //Random rotation
         rotation.x = Random.Range(-rotationOffset, rotationOffset);
         rotation.y = Random.Range(-rotationOffset, rotationOffset);
         rotation.z = Random.Range(-rotationOffset, rotationOffset);
 
-        Debug.Log(rotation);
+        // set random size and health and damage
+        randAsteroidClass = Random.Range(minClass, maxClass);
+        size.Scale(Vector3.one * randAsteroidClass);
+        myTrans.localScale = size;
 
-        // set random size
+        health = 100 * randAsteroidClass;
 
-        
+        damageDealt = 10 * randAsteroidClass;
+
     }
 
     // Update is called once per frame
@@ -36,4 +48,16 @@ public class asteriod : MonoBehaviour
         myTrans.Rotate(rotation * Time.deltaTime);
 
     }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Destroy(this);
+        }
+    }
+
+
+
 }
