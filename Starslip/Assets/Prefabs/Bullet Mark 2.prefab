@@ -2266,6 +2266,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LifeTime: 5
   Damage: 50
+  Explosion: {fileID: 5354469255707257779, guid: d42651031cd2e654d9557d85e0e6f601,
+    type: 3}
 --- !u!54 &4973536370978037241
 Rigidbody:
   m_ObjectHideFlags: 0
