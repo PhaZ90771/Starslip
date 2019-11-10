@@ -106,7 +106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 960ad64815630604390090d260f18df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3.31
   health: 10
   damage: 10
-  flightPerimeter: 5
+  parent: {fileID: 1417299689080761086, guid: b31127ccd3fe76649978440404bf124a, type: 3}
+  AsteroidSpawner: {fileID: 5864348949285686849, guid: d8e0e45e525299949b9f09d3a7164056,
+    type: 3}
