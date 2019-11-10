@@ -68,7 +68,6 @@ public class AsteroidSpawn : MonoBehaviour
                 Debug.LogError("No quadrant");
                 break;
         }
-        Debug.Log(spawnQuadrants.Count);
         Instantiate(Asteroids[Random.Range(0, Asteroids.Length)], gameObject.transform.position + quadVector, Quaternion.identity);
 
     }

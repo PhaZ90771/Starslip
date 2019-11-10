@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Cinemachine;
 
 public class Ship : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class Ship : MonoBehaviour
     private Vector3 aimPoint = Vector3.zero;
     private Ray shipAimRay;
     private Ray aimRay;
+
+    private CinemachineSmoothPath path;
+    private CinemachineDollyCart dolly;
 
     [SerializeField] private Transform target;
     [SerializeField] private Transform crosshairImage;
@@ -25,6 +29,9 @@ public class Ship : MonoBehaviour
     {
         inputMaster = new InputMaster();
         aimLocation = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+
+        dolly = GetComponentInParent<CinemachineDollyCart>();
+        path = (CinemachineSmoothPath)dolly.m_Path;
     }
 
     private void OnEnable()
@@ -47,6 +54,7 @@ public class Ship : MonoBehaviour
         crosshairImage.position = Camera.main.WorldToScreenPoint(aimPoint);
 
         Move();
+        Orient();
 
         Shoot();
     }
@@ -69,6 +77,14 @@ public class Ship : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, toPoint, Time.deltaTime * Speed);
 
         shipModel.LookAt(aimPoint);
+    }
+
+    private void Orient()
+    {
+        Quaternion orientation = path.EvaluateOrientationAtUnit(dolly.m_Position, dolly.m_PositionUnits);
+        var diffZ = orientation.eulerAngles.z - shipModel.rotation.eulerAngles.z;
+        Quaternion rot = Quaternion.AngleAxis(diffZ, shipModel.forward);
+        shipModel.rotation = rot * shipModel.rotation;
     }
 
     private void ClampAim()
@@ -107,7 +123,7 @@ public class Ship : MonoBehaviour
             var b = Instantiate(bullet, bulletSpawnPoint.position, new Quaternion());
             b.transform.LookAt(aimPoint);
             var rb = b.GetComponent<Rigidbody>();
-            rb.AddForce(b.transform.forward * 1000f);
+            rb.AddForce(b.transform.forward * 5000f);
             shotDelay = true;
         }
         else if (inputMaster.Player.Fire.ReadValue<float>() < 0.01f)
