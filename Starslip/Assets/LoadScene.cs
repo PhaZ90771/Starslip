@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class LoadScene : MonoBehaviour
 {
-    public Object SceneToLoad;
+    public string SceneToLoad;
 
     // Start is called before the first frame update
     void Start()
@@ -16,7 +16,7 @@ public class LoadScene : MonoBehaviour
     {
         if (Input.anyKeyDown)
         {
-            SceneManager.LoadScene(SceneToLoad.name);
+            SceneManager.LoadScene(SceneToLoad);
         }
     }
 }
