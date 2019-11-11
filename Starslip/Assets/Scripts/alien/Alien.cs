@@ -8,6 +8,7 @@ public class Alien : MonoBehaviour
     public int damage = 10;
 
     public Transform parent;
+    public GameObject Explosion;
 
     public float speed;
     
@@ -77,6 +78,7 @@ public class Alien : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
+            Instantiate(Explosion, transform.position, transform.rotation, null);
             transform.localPosition = new Vector3(0f, 30f, -40f);
             AsteroidSpawner.AlienDead();
             gameObject.SetActive(false);

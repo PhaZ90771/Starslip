@@ -99,6 +99,8 @@ MonoBehaviour:
   health: 10
   damage: 10
   parent: {fileID: 1417299689080761086}
+  Explosion: {fileID: 6834678582901581985, guid: 0dd41baa0384b9c45be0554eec057ca8,
+    type: 3}
   speed: 3
 --- !u!135 &1688986647792798104
 SphereCollider:
